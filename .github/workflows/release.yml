@@ -11,24 +11,36 @@ permissions:
 jobs:
   release:
     runs-on: macos-latest
-    
+    strategy:
+      matrix:
+        include:
+          - goos: darwin
+            goarch: amd64
+            suffix: darwin-amd64
+          - goos: darwin
+            goarch: arm64
+            suffix: darwin-arm64
+
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Set up Go
       uses: actions/setup-go@v5
       with:
         go-version: '1.26'
-    
+
     - name: Build
       working-directory: ./appinsight
+      env:
+        GOOS: ${{ matrix.goos }}
+        GOARCH: ${{ matrix.goarch }}
       run: |
-        go build -ldflags "-s -w -X github.com/wjq/appinsight/internal/cli.Version=${GITHUB_REF#refs/tags/}" -o ../appinsight ./cmd/appinsight
-    
+        go build -ldflags "-s -w -X github.com/wjq/appinsight/internal/cli.Version=${GITHUB_REF#refs/tags/}" -o ../appinsight-${{ matrix.suffix }} ./cmd/appinsight
+
     - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
-        files: appinsight
+        files: appinsight-*
         generate_release_notes: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -36,7 +36,7 @@
 
 ## 执行
 
-可以通过 [wjq@example.com](mailto:wjq@example.com) 向负责执行的社区领导者报告辱骂、骚扰或其他不可接受的行为。所有投诉都将得到及时和公平的审查和调查。
+可以通过 [wangjianqi@aliyun.com](mailto:wangjianqi@aliyun.com) 向负责执行的社区领导者报告辱骂、骚扰或其他不可接受的行为。所有投诉都将得到及时和公平的审查和调查。
 
 所有社区领导者都有义务尊重任何事件报告者的隐私和安全。
 

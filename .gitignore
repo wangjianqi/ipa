@@ -21,7 +21,8 @@ go.sum
 dist/
 build/
 bin/
-appinsight
+/appinsight
+!appinsight/
 
 # Environment files
 .env
