@@ -7,6 +7,7 @@
 *.test
 *.out
 vendor/
+go.sum
 
 # IDE
 .idea/
@@ -20,10 +21,12 @@ vendor/
 dist/
 build/
 bin/
+appinsight
 
 # Environment files
 .env
 .env.local
+.env.*.local
 
 # Log files
 *.log
@@ -32,3 +35,22 @@ bin/
 coverage.txt
 coverage.html
 *.cover
+coverage/
+
+# Downloaded files
+downloads/
+*.ipa
+
+# Output files
+*.json
+*.md
+!README.md
+!CONTRIBUTING.md
+!CODE_OF_CONDUCT.md
+!CHANGELOG.md
+!LICENSE
+
+# Temporary files
+tmp/
+temp/
+*.tmp
