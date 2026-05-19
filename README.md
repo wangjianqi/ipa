@@ -44,7 +44,7 @@ go install github.com/wangjianqi/AppInsight/cmd/appinsight@latest
 
 ```bash
 git clone https://github.com/wangjianqi/AppInsight.git
-cd appinsight/appinsight
+cd AppInsight
 go build -o appinsight ./cmd/appinsight
 
 # 可选：安装到系统路径
