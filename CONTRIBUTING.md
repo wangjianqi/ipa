@@ -146,7 +146,7 @@ go test -cover ./...
 如果您需要帮助：
 
 - 查看 [README.md](README.md)
-- 搜索 [Issues](https://github.com/wjq/appinsight/issues)
+- 搜索 [Issues](https://github.com/wangjianqi/ipa/issues)
 - 创建新的 Issue 提问
 
 ## 致谢

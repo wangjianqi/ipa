@@ -33,7 +33,7 @@ ipatool auth login
 ### 从源码安装
 
 ```bash
-git clone https://github.com/wjq/appinsight.git
+git clone https://github.com/wangjianqi/ipa.git
 cd appinsight/appinsight
 go build -o appinsight ./cmd/appinsight
 
@@ -190,7 +190,7 @@ appinsight/
 
 如有问题或建议，欢迎通过以下方式联系：
 
-- 提交 [GitHub Issue](https://github.com/wjq/appinsight/issues)
+- 提交 [GitHub Issue](https://github.com/wangjianqi/ipa/issues)
 - 发送邮件至 [your-email@example.com](mailto:your-email@example.com)
 
 ---
