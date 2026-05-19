@@ -191,7 +191,7 @@ appinsight/
 如有问题或建议，欢迎通过以下方式联系：
 
 - 提交 [GitHub Issue](https://github.com/wangjianqi/ipa/issues)
-- 发送邮件至 [your-email@example.com](mailto:your-email@example.com)
+- 发送邮件至 [wangjianqi@aliyun.com](mailto:wangjianqi@aliyun.com)
 
 ---
 
