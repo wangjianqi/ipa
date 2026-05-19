@@ -168,13 +168,22 @@ func newReportCommand() *cobra.Command {
 				}
 				fmt.Print(md)
 				return nil
+			case "html":
+				h := report.GenerateHTML(analysis)
+				if outputFile != "" {
+					if err := report.WriteReport(h, outputFile); err != nil {
+						return output.PrintJSON(output.NewError("report", fmt.Sprintf("failed to write report: %v", err)))
+					}
+				}
+				fmt.Print(h)
+				return nil
 			default:
-				return output.PrintJSON(output.NewError("report", fmt.Sprintf("unsupported format: %s (supported: markdown)", format)))
+				return output.PrintJSON(output.NewError("report", fmt.Sprintf("unsupported format: %s (supported: markdown, html)", format)))
 			}
 		},
 	}
 
-	cmd.Flags().StringVar(&format, "format", "markdown", "output format (markdown)")
+	cmd.Flags().StringVar(&format, "format", "markdown", "output format (markdown, html)")
 	cmd.Flags().StringVar(&outputFile, "output", "", "write report to file")
 
 	return cmd
