@@ -30,14 +30,17 @@ brew install majd/repo/ipatool
 ipatool auth login
 ```
 
-### 通过 Homebrew 安装
+### 通过 Go Install 安装（推荐）
+
+如果你已经安装了 Go 1.26+，可以直接使用 `go install`：
 
 ```bash
-brew tap wangjianqi/repo
-brew install appinsight
+go install github.com/wjq/appinsight/cmd/appinsight@latest
 ```
 
-### 从源码安装
+安装后，确保 `$GOPATH/bin` 或 `$HOME/go/bin` 在你的 PATH 中。
+
+### 从源码编译安装
 
 ```bash
 git clone https://github.com/wangjianqi/ipa.git
