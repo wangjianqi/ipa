@@ -11,9 +11,9 @@ type SearchResult struct {
 	Name      string                 `json:"name"`
 	BundleID  string                 `json:"bundleId"`
 	Version   string                 `json:"version"`
-	Developer string                 `json:"developer"`
+	Developer string                 `json:"developer,omitempty"`
 	TrackID   int64                  `json:"trackId"`
-	Price     string                 `json:"price"`
+	Price     interface{}            `json:"price"`
 	Raw       map[string]interface{} `json:"raw"`
 }
 
@@ -24,20 +24,20 @@ type SearchResponse struct {
 	Results []SearchResult `json:"results"`
 }
 
-type ipatoolSearchItem struct {
-	BundleID string `json:"bundleIdentifier"`
-	Name     string `json:"name"`
-	Version  string `json:"version"`
-	Developer string `json:"artistName"`
-	TrackID  int64  `json:"trackId"`
-	Price    string `json:"price"`
+type ipatoolSearchResponse struct {
+	Level string `json:"level"`
+	Count int    `json:"count"`
+	Apps  []struct {
+		ID        int64       `json:"id"`
+		BundleID  string      `json:"bundleID"`
+		Name      string      `json:"name"`
+		Version   string      `json:"version"`
+		Price     interface{} `json:"price"`
+	} `json:"apps"`
 }
 
-func Search(keyword, country string, limit int) (*SearchResponse, error) {
+func Search(keyword string, limit int) (*SearchResponse, error) {
 	args := []string{"search", keyword, "--format", "json"}
-	if country != "" {
-		args = append(args, "--country", country)
-	}
 	if limit > 0 {
 		args = append(args, "--limit", fmt.Sprintf("%d", limit))
 	}
@@ -54,29 +54,27 @@ func Search(keyword, country string, limit int) (*SearchResponse, error) {
 		return nil, fmt.Errorf("ipatool search failed: %w", err)
 	}
 
-	var items []ipatoolSearchItem
-	if err := json.Unmarshal(stdout, &items); err != nil {
+	var rawResp ipatoolSearchResponse
+	if err := json.Unmarshal(stdout, &rawResp); err != nil {
 		return nil, fmt.Errorf("failed to parse ipatool output as JSON: %w\nraw output: %s", err, string(stdout))
 	}
 
-	results := make([]SearchResult, 0, len(items))
-	for _, item := range items {
+	results := make([]SearchResult, 0, len(rawResp.Apps))
+	for _, app := range rawResp.Apps {
 		raw := map[string]interface{}{
-			"bundleIdentifier": item.BundleID,
-			"name":             item.Name,
-			"version":          item.Version,
-			"artistName":       item.Developer,
-			"trackId":          item.TrackID,
-			"price":            item.Price,
+			"id":        app.ID,
+			"bundleID":  app.BundleID,
+			"name":      app.Name,
+			"version":   app.Version,
+			"price":     app.Price,
 		}
 		results = append(results, SearchResult{
-			Name:      item.Name,
-			BundleID:  item.BundleID,
-			Version:   item.Version,
-			Developer: item.Developer,
-			TrackID:   item.TrackID,
-			Price:     item.Price,
-			Raw:       raw,
+			Name:     app.Name,
+			BundleID: app.BundleID,
+			Version:  app.Version,
+			TrackID:  app.ID,
+			Price:    app.Price,
+			Raw:      raw,
 		})
 	}
 
@@ -98,6 +96,11 @@ type FetchResponse struct {
 	EncryptedReminder string `json:"encryptedReminder"`
 }
 
+type ipatoolDownloadResponse struct {
+	Level  string `json:"level"`
+	Path   string `json:"path"`
+}
+
 func Fetch(bundleID, outputDir string, purchase bool) (*FetchResponse, error) {
 	args := []string{"download", "--bundle-identifier", bundleID}
 	if purchase {
@@ -116,7 +119,7 @@ func Fetch(bundleID, outputDir string, purchase bool) (*FetchResponse, error) {
 		}
 		if exitErr, ok := err.(*exec.ExitError); ok {
 			stderr := string(exitErr.Stderr)
-			if strings.Contains(stderr, "not authenticated") || strings.Contains(stderr, "login") {
+			if strings.Contains(stderr, "not authenticated") || strings.Contains(stderr, "login") || strings.Contains(stderr, "auth") {
 				return nil, fmt.Errorf("ipatool is not logged in. Please run: ipatool auth login")
 			}
 			return nil, fmt.Errorf("ipatool download failed: %s", stderr)
@@ -124,10 +127,7 @@ func Fetch(bundleID, outputDir string, purchase bool) (*FetchResponse, error) {
 		return nil, fmt.Errorf("ipatool download failed: %w", err)
 	}
 
-	type ipatoolDownloadOutput struct {
-		Path string `json:"path"`
-	}
-	var dlOutput ipatoolDownloadOutput
+	var dlOutput ipatoolDownloadResponse
 	if err := json.Unmarshal(stdout, &dlOutput); err != nil {
 		return nil, fmt.Errorf("failed to parse ipatool download output: %w\nraw output: %s", err, string(stdout))
 	}
