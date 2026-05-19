@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/wjq/appinsight/internal/ipa"
+	"github.com/wangjianqi/AppInsight/internal/ipa"
 )
 
 func GenerateMarkdown(analysis *ipa.AnalysisResult) string {

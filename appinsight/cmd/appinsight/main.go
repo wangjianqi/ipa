@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/wjq/appinsight/internal/cli"
+	"github.com/wangjianqi/AppInsight/internal/cli"
 )
 
 func main() {

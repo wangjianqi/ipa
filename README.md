@@ -35,7 +35,7 @@ ipatool auth login
 如果你已经安装了 Go 1.26+，可以直接使用 `go install`：
 
 ```bash
-go install github.com/wjq/appinsight/cmd/appinsight@latest
+go install github.com/wangjianqi/AppInsight/cmd/appinsight@latest
 ```
 
 安装后，确保 `$GOPATH/bin` 或 `$HOME/go/bin` 在你的 PATH 中。
@@ -43,7 +43,7 @@ go install github.com/wjq/appinsight/cmd/appinsight@latest
 ### 从源码编译安装
 
 ```bash
-git clone https://github.com/wangjianqi/ipa.git
+git clone https://github.com/wangjianqi/AppInsight.git
 cd appinsight/appinsight
 go build -o appinsight ./cmd/appinsight
 
@@ -206,7 +206,7 @@ appinsight/
 
 如有问题或建议，欢迎通过以下方式联系：
 
-- 提交 [GitHub Issue](https://github.com/wangjianqi/ipa/issues)
+- 提交 [GitHub Issue](https://github.com/wangjianqi/AppInsight/issues)
 - 发送邮件至 [wangjianqi@aliyun.com](mailto:wangjianqi@aliyun.com)
 
 ---

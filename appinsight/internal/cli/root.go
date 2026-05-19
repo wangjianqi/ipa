@@ -4,11 +4,11 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"github.com/wjq/appinsight/internal/ipa"
-	"github.com/wjq/appinsight/internal/ipatool"
-	"github.com/wjq/appinsight/internal/output"
-	"github.com/wjq/appinsight/internal/report"
-	"github.com/wjq/appinsight/internal/system"
+	"github.com/wangjianqi/AppInsight/internal/ipa"
+	"github.com/wangjianqi/AppInsight/internal/ipatool"
+	"github.com/wangjianqi/AppInsight/internal/output"
+	"github.com/wangjianqi/AppInsight/internal/report"
+	"github.com/wangjianqi/AppInsight/internal/system"
 )
 
 var Version = "0.1.0"
