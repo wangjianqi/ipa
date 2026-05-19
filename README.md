@@ -30,6 +30,13 @@ brew install majd/repo/ipatool
 ipatool auth login
 ```
 
+### 通过 Homebrew 安装
+
+```bash
+brew tap wangjianqi/repo
+brew install appinsight
+```
+
 ### 从源码安装
 
 ```bash
@@ -90,8 +97,14 @@ appinsight analyze-ipa ./WeChat.ipa --output analysis.json
 # 从分析结果生成 Markdown 报告
 appinsight report analysis.json --format markdown
 
-# 输出报告到文件
+# 输出 Markdown 报告到文件
 appinsight report analysis.json --format markdown --output report.md
+
+# 生成 HTML 报告
+appinsight report analysis.json --format html
+
+# 输出 HTML 报告到文件
+appinsight report analysis.json --format html --output report.html
 ```
 
 ## 分析内容
